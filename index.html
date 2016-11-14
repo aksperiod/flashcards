@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>study</title>
+        <style media="screen">
+            html, body {
+                margin:0;
+                background:rgba(0,0,0,0.02);
+                min-height: 100vh;
+            }
+            .content {
+                text-align: center;
+                max-width: 40rem;
+                margin: 0 auto;
+                padding: 10% 0;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+            }
+            .words {
+                font-size: 4em;
+                padding: 40px;
+                cursor: pointer;
+            }
+            .next {
+                border-radius: 50px;
+                padding: 8px 24px;
+                background: white;
+                cursor: pointer;
+                display: inline-block;
+                font-family: 'Helvetica', sans-serif;
+                margin-top: 20px;
+                letter-spacing: 1px;
+                border:1px solid #8732ff;
+                font-size: 1.3em;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none;   /* Chrome/Safari/Opera */
+                -khtml-user-select: none;    /* Konqueror */
+                -moz-user-select: none;      /* Firefox */
+                -ms-user-select: none;       /* Internet Explorer/Edge */
+                user-select: none;
+            }
+            .next:hover {
+                background:#b179ff;
+                color: white;
+                box-shadow: 2px 1px 1px rgba(0,0,0,0.1) inset;
+
+            }
+
+            .next:active {
+                transform: scale(0.95);
+            }
+            .type {
+                display: inline-block;
+                padding: 4px 8px;
+                font-size: 0.8em;
+                margin: 0px 5px;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+
+            .type.selected {
+                background:#b179ff;
+                color: white;
+            }
+        </style>
+    </head>
+    <body id="view">
+        <div class="types">
+            <div class="type"
+                v-for="type in types"
+                :class="{'selected':startWith === $index}"
+                @click="startWith = startWith === $index? -1: $index">
+                {{type}}
+            </div>
+        </div>
+        <br>    <br>    <br>    <br>
+        <div class="content">
+            <div class="words" @click="showing = (showing + 1)%3">
+                <span v-if="showing===0">{{kanji}}</span>
+                <span v-if="showing===1">{{hira}}</span>
+                <span v-if="showing===2">{{word}}</span>
+            </div>
+            <div class="next" @click="newWord">
+                Next
+            </div>
+        </div>
+    </body>
+    <script src="vue.min.js" charset="utf-8"></script>
+    <script src="ch6/kanji.js" charset="utf-8"></script>
+    <script src="ch6/hira.js" charset="utf-8"></script>
+    <script src="ch6/english.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    var data = [kanji,hira,words];
+
+    var vm = new Vue({
+        el:"#view",
+        data: {
+            data: data,
+            word: "",
+            kanji: "",
+            hira:"",
+            left:[],
+            showing:0,
+            startWith:-1,
+            types:["Kanji", "Hiragana","English"],
+        },
+        ready: function() {
+            this.newWord();
+        },
+        methods: {
+            newWord: function() {
+                if(!this.left.length) {
+                    this.makeRandom();
+                }
+                var cat = random(3);
+
+                this.showing = this.startWith >= 0 ?  this.startWith : cat;
+                var _left = random(this.left.length)
+                var select = this.left[_left];
+                this.word = data[2][select];
+                this.kanji = data[0][select];
+                this.hira = data[1][select];
+                this.left.splice(_left, 1);
+            },
+            makeRandom: function() {
+                for(var i=0;i<this.data[0].length;i++){
+                    this.left.push(i);
+                }
+            }
+        }
+    });
+
+
+    function random(n) {
+        return Math.floor(Math.random()*n);
+    }
+
+    </script>
+</html>
