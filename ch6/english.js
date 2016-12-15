@@ -1,4 +1,4 @@
-var words = [
+var words6 = [
 "To love",
 "To die",
 "death, mortality",

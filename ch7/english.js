@@ -1,4 +1,4 @@
-var words = [
+var words7 = [
 "window",
 "normal train",
 "queue, line",

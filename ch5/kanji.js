@@ -1,4 +1,4 @@
-var kanji = [
+var kanji5 = [
 "留学",
 "授業",
 "教授",

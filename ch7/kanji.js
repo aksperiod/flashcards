@@ -1,4 +1,4 @@
-var kanji = [
+var kanji7 = [
   "窓",
   "列車",
   "列",

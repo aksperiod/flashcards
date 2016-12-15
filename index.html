@@ -89,10 +89,20 @@
         </div>
     </body>
     <script src="vue.min.js" charset="utf-8"></script>
+    <script src="ch5/kanji.js" charset="utf-8"></script>
+    <script src="ch5/hira.js" charset="utf-8"></script>
+    <script src="ch5/english.js" charset="utf-8"></script>
+    <script src="ch6/kanji.js" charset="utf-8"></script>
+    <script src="ch6/hira.js" charset="utf-8"></script>
+    <script src="ch6/english.js" charset="utf-8"></script>
     <script src="ch7/kanji.js" charset="utf-8"></script>
     <script src="ch7/hira.js" charset="utf-8"></script>
     <script src="ch7/english.js" charset="utf-8"></script>
     <script type="text/javascript">
+
+    var kanji = [].concat(kanji5, kanji6, kanji7);
+    var hira = [].concat(hira5, hira6, hira7);
+    var words = [].concat(words5, words6, words7);
     var data = [kanji,hira,words];
 
     var vm = new Vue({
